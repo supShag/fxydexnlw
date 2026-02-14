@@ -1,0 +1,9 @@
+[
+null,
+{"id":1,"battlerName":"","characterIndex":0,"characterName":"$XMZLT","classId":5,"equips":[0,0,0,0,0],"faceIndex":2,"faceName":"xm","traits":[],"initialLevel":1,"maxLevel":99,"name":"小梅","nickname":"梅","note":"","profile":""},
+{"id":2,"battlerName":"","characterIndex":0,"characterName":"$XLZLT","classId":5,"equips":[0,0,0,0,0],"faceIndex":0,"faceName":"xl","traits":[],"initialLevel":1,"maxLevel":99,"name":"小兰","nickname":"兰","note":"","profile":""},
+{"id":3,"battlerName":"","characterIndex":0,"characterName":"$XXZLT","classId":5,"equips":[0,0,0,0,0],"faceIndex":0,"faceName":"xx","traits":[],"initialLevel":1,"maxLevel":99,"name":"小雪","nickname":"雪","note":"","profile":""},
+{"id":4,"battlerName":"","characterIndex":0,"characterName":"Nature","classId":6,"equips":[0,0,0,0,0],"faceIndex":0,"faceName":"Nature","traits":[],"initialLevel":1,"maxLevel":99,"name":"王大爷的大黄狗","nickname":"黄狗","note":"","profile":""},
+{"id":5,"battlerName":"","characterIndex":0,"characterName":"","classId":1,"equips":[0,0,0,0,0],"faceIndex":0,"faceName":"","traits":[],"initialLevel":1,"maxLevel":99,"name":"","nickname":"","note":"","profile":""},
+{"id":6,"battlerName":"","characterIndex":0,"characterName":"","classId":1,"equips":[0,0,0,0,0],"faceIndex":0,"faceName":"","traits":[],"initialLevel":1,"maxLevel":99,"name":"","nickname":"","note":"","profile":""}
+]
