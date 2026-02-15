@@ -16,6 +16,7 @@ var $plugins =
 {"name":"Olivia_MapDisplayNameCore","status":true,"description":"<MapDisplayNameCore> for RPG Maker MV version 1.6.1.","parameters":{"":"","ATTENTION!!!":"READ THE HELP FILE","Text Distance":"80","Window Height":"36","Y Position":"","Starting Y":"18","Middle Y":"48","Ending Y":"78","Fade":"","Fade In Time":"60","Middle Time":"120","Fade Out Time":"60","Dim Color":"","Dim Color 1":"rgba(0, 0, 0, 0.6)","Dim Color 2":"rgba(0, 0, 0, 0)"}},
 {"name":"HotPotGame","status":true,"description":"(v1.1) 简易火锅小游戏插件 - 豪华升级版","parameters":{"Result Variable ID":"2"}},
 {"name":"MOG_Weather_EX","status":false,"description":"(v3.4 *) Adiciona novos efeitos de climas.","parameters":{"Battle Weather":"true"}},
+{"name":"MOG_DestinationPointer","status":true,"description":"(v1.0) Permite customizar a imagem do cursor do destino.","parameters":{"X-Axis Offset":"0","Y-Axis Offset":"0","Smooth Movement":"true","Zoom Animation":"false","Blink Animation":"false","Float Animation":"true","Blend Mode":"0","Rotation Speed":"0","Number of Frames":"1","Animation Speed":"4"}},
 {"name":"AR_Overlay","status":true,"description":"[v1.2] 在游戏中调用本地 AR 网页并强制暂停事件流","parameters":{}},
-{"name":"MOG_DestinationPointer","status":true,"description":"(v1.0) Permite customizar a imagem do cursor do destino.","parameters":{"X-Axis Offset":"0","Y-Axis Offset":"0","Smooth Movement":"true","Zoom Animation":"false","Blink Animation":"false","Float Animation":"true","Blend Mode":"0","Rotation Speed":"0","Number of Frames":"1","Animation Speed":"4"}}
+{"name":"My_AR_Overlay","status":true,"description":"[v1.2] 在游戏中调用本地 AR 网页并强制暂停事件流","parameters":{}}
 ];

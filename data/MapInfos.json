@@ -1,6 +1,6 @@
 [
 null,
-{"id":1,"expanded":true,"name":"小镇","order":1,"parentId":0,"scrollX":896,"scrollY":512},
+{"id":1,"expanded":true,"name":"小镇","order":1,"parentId":0,"scrollX":811,"scrollY":516},
 {"id":2,"expanded":true,"name":"学校 走廊","order":3,"parentId":3,"scrollX":1101,"scrollY":512},
 {"id":3,"expanded":true,"name":"活动室","order":2,"parentId":1,"scrollX":819,"scrollY":520},
 {"id":4,"expanded":true,"name":"小超市","order":4,"parentId":2,"scrollX":819,"scrollY":520},
@@ -14,5 +14,5 @@ null,
 {"id":12,"expanded":true,"name":"甜品店","order":13,"parentId":10,"scrollX":1139,"scrollY":624.5},
 {"id":13,"expanded":false,"name":"餐厅","order":14,"parentId":12,"scrollX":819,"scrollY":520},
 {"id":14,"expanded":true,"name":"活动室","order":15,"parentId":3,"scrollX":819,"scrollY":520},
-{"id":15,"expanded":false,"name":"MAP015","order":7,"parentId":7,"scrollX":817,"scrollY":497.5}
+{"id":15,"expanded":false,"name":"MAP015","order":7,"parentId":7,"scrollX":819,"scrollY":520}
 ]
