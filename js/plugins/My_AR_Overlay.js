@@ -10,11 +10,11 @@
  * AR_Open
  *
  * 效果：
- * 1. 弹出 ar_firework.html 全屏窗口。
+ * 1. 弹出 another_ar_firework.html 全屏窗口。
  * 2. 游戏当前的事件指令流会停止，直到点击 AR 页面中的“离开”按钮。
  * 3. 游戏内的计时器、角色移动（如果是自动执行/串行事件）会被阻塞。
  *
- * 注意：请确保 ar_firework.html 放在项目根目录下（与 index.html 同级）。
+ * 注意：请确保 another_ar_firework.html 放在项目根目录下（与 index.html 同级）。
  */
 
 (function() {
@@ -38,7 +38,7 @@
         this.iframe = document.createElement('iframe');
         this.iframe.id = 'ar-game-frame';
         // 确保引用的文件名与生成的文件名一致
-        this.iframe.src = 'ar_firework.html'; 
+        this.iframe.src = 'another_another_ar_firework.html'; 
         
         // 样式：全屏置顶
         this.iframe.style.position = 'fixed';
