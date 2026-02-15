@@ -10,7 +10,12 @@
         <link rel="stylesheet" type="text/css" href="fonts/gamefont.css">
         <title>Project3</title>
         <style>
-            /* 修正网页版画布位置和缩放 */
+            /* 修正：添加了闭合标签，并优化了居中逻辑 */
+            body {
+                background-color: black;
+                margin: 0;
+                overflow: hidden;
+            }
             canvas {
                 image-rendering: pixelated;
                 margin: auto !important;
@@ -20,7 +25,7 @@
             }
         </style>
     </head>
-    <body style="background-color: black">
+    <body>
         <script type="text/javascript" src="js/libs/pixi.js"></script>
         <script type="text/javascript" src="js/libs/pixi-tilemap.js"></script>
         <script type="text/javascript" src="js/libs/pixi-picture.js"></script>
