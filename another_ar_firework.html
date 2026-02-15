@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AR 魔法仙女棒</title>
 
+    <!-- MediaPipe 库 -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 
+    <!-- 兼容 RPG Maker MV/MZ (NW.js) 的环境补丁 -->
     <script>
     if (typeof process === 'object' && typeof require === 'function') {
         window._oldModule = window.module;
@@ -35,23 +37,32 @@
         }
         canvas { position: absolute; top: 0; left: 0; }
         
-        /* 关键：隐藏视频但保留占位，解决 iOS Safari 全屏播放问题 */
+        /* 关键：隐藏视频但保留占位 */
         #input_video { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
-        /* --- 启动遮罩层 --- */
+        /* --- 启动遮罩层 (移植自 AR 版) --- */
         #start-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 9999;
+            background: rgba(0,0,0,0.85); z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.5s;
+            transition: opacity 0.5s; backdrop-filter: blur(10px);
         }
+
+        .tutorial-box {
+            background: rgba(20, 20, 30, 0.8); border: 1px solid var(--accent-color);
+            padding: 25px 30px; border-radius: 20px; text-align: left; margin-bottom: 30px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2); max-width: 85%; line-height: 1.6;
+        }
+        .tutorial-box h2 { margin: 0 0 15px 0; color: var(--accent-color); text-align: center; }
+        .tutorial-box li { margin-bottom: 10px; color: #ddd; font-size: 0.95rem; }
+        .highlight { color: #fff; font-weight: bold; background: rgba(255,215,0,0.3); padding: 2px 6px; border-radius: 4px; }
+
         #start-btn {
             padding: 16px 40px; font-size: 1.2rem; background: var(--accent-color); color: #000;
             border: none; border-radius: 50px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 0 25px var(--accent-glow); animation: pulse 2s infinite;
+            box-shadow: 0 0 25px var(--accent-glow); transition: 0.3s;
         }
-        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
-        #loading-text { margin-top: 20px; color: #aaa; font-size: 0.9rem; text-align: center; line-height: 1.6; }
+        #start-btn:hover { transform: scale(1.05); }
 
         /* --- UI 样式 --- */
         .btn-icon {
@@ -119,9 +130,19 @@
 </head>
 <body>
 
+    <!-- 移植自 AR 版本的启动遮罩 -->
     <div id="start-overlay">
-        <button id="start-btn" onclick="startApp()">✨ 点击开启魔法 ✨</button>
-        <div id="loading-text">准备就绪<br><span style="font-size:0.8em; opacity:0.7">若长时间无反应请使用 HTTPS 访问</span></div>
+        <div class="tutorial-box">
+            <h2>✨ 魔法启动指南 ✨</h2>
+            <ul>
+                <li>👋 <b>手势</b>：对准摄像头，你的食指就是<span class="highlight">魔法棒</span>。</li>
+                <li>🤏 <b>捏合</b>：食指与拇指捏合，点燃火花。</li>
+                <li>✌️ <b>比耶</b>：比出剪刀手，释放超级加倍的火花。</li>
+                <li>🖐 <b>张手</b>：五指张开，切换火花颜色。</li>
+            </ul>
+        </div>
+        <button id="start-btn" onclick="startApp()">✨ 开启魔法 ✨</button>
+        <div id="loading-text" style="display:none; margin-top: 15px; color:#aaa;">正在加载魔法引擎...</div>
     </div>
 
     <div class="top-bar">
@@ -133,6 +154,7 @@
         </div>
     </div>
 
+    <!-- 设置面板 -->
     <div id="settings-panel">
         <div class="panel-section">
             <div class="panel-title">照片流</div>
@@ -248,14 +270,14 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // --- 启动逻辑 (使用 CDN + 交互式启动) ---
+    // --- 启动逻辑 (移植修复版) ---
     async function startApp() {
         const btn = document.getElementById('start-btn');
         btn.style.display = 'none';
-        loadingText.innerHTML = "正在召唤 AI 模型 (首次加载约10秒)...";
+        loadingText.style.display = 'block';
 
         try {
-            // 1. 初始化 MediaPipe (强制 CDN)
+            // 1. 初始化 MediaPipe
             hands = new Hands({
                 locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
             });
@@ -270,24 +292,29 @@
             hands.onResults(onResults); // 绑定结果回调
 
             // 2. 启动摄像头
-            loadingText.innerHTML = "正在连接摄像头...";
+            // 使用与 ar_firework.html 相同的参数
             const stream = await navigator.mediaDevices.getUserMedia({
-                video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: "user" },
+                video: { width: 640, height: 480, facingMode: "user" },
                 audio: false
             });
 
             videoElement.srcObject = stream;
             
-            // 3. 必须在用户交互后调用 play (Safari 修复)
+            // 3. 必须在用户交互后调用 play (Safari/RPG Maker 修复)
             await new Promise((resolve) => videoElement.onloadedmetadata = resolve);
             await videoElement.play();
 
-            // 4. 启动帧处理循环
-            loadingText.innerHTML = "魔法加载中...";
-            processVideoLoop();
+            // 4. 隐藏遮罩，启动循环
+            document.getElementById('start-overlay').style.opacity = '0';
+            setTimeout(() => document.getElementById('start-overlay').style.display = 'none', 500);
+
+            // 5. 启动帧处理循环
+            loop(); // 启动绘图循环
+            processVideoLoop(); // 启动 AI 识别循环
 
         } catch (e) {
-            loadingText.innerHTML = `<span style="color:red">启动失败: ${e.message}</span>`;
+            console.error(e);
+            loadingText.innerHTML = `<span style="color:red">启动失败: ${e.message}<br>请确保允许摄像头权限</span>`;
             btn.style.display = 'block';
             btn.innerText = "重试";
         }
@@ -608,15 +635,7 @@
     resetBgGenerator(); // 启动背景粒子
 
     // --- 结果处理与全局状态更新 ---
-    let isFirstSuccess = true;
     function onResults(results) {
-        // 成功获取结果，隐藏启动遮罩
-        if (isFirstSuccess) {
-            document.getElementById('start-overlay').style.opacity = '0';
-            setTimeout(() => document.getElementById('start-overlay').style.display = 'none', 500);
-            isFirstSuccess = false;
-        }
-
         const now = Date.now();
         if (results.multiHandLandmarks) {
             for (let i = 0; i < results.multiHandLandmarks.length; i++) {
@@ -710,8 +729,7 @@
             if (p.life <= 0) fgParticles.splice(i, 1);
         }
     }
-    loop();
-
+    // 注意：不再自动调用 loop()，改由 startApp() 触发
 </script>
 </body>
 </html>

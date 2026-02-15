@@ -1,5 +1,5 @@
 /*:
- * @plugindesc [v1.2] 在游戏中调用本地 AR 网页并强制暂停事件流
+ * @plugindesc [v1.3] (修正版) 在游戏中调用本地 AR 网页并强制暂停事件流
  * @author Gemini & User
  *
  * @help
@@ -7,11 +7,11 @@
  * 指令说明
  * ============================================================================
  * * 在事件页中使用【插件指令】：
- * AR_Open
+ * Start_AR
  *
  * 效果：
  * 1. 弹出 another_ar_firework.html 全屏窗口。
- * 2. 游戏当前的事件指令流会停止，直到点击 AR 页面中的“离开”按钮。
+ * 2. 游戏当前的事件指令流会停止，直到点击 AR 页面中的“返回游戏”按钮。
  * 3. 游戏内的计时器、角色移动（如果是自动执行/串行事件）会被阻塞。
  *
  * 注意：请确保 another_ar_firework.html 放在项目根目录下（与 index.html 同级）。
@@ -37,8 +37,8 @@
 
         this.iframe = document.createElement('iframe');
         this.iframe.id = 'ar-game-frame';
-        // 确保引用的文件名与生成的文件名一致
-        this.iframe.src = 'another_another_ar_firework.html'; 
+        // 修正：移除了多余的 'another_'，文件名现在必须完全匹配
+        this.iframe.src = 'another_ar_firework.html'; 
         
         // 样式：全屏置顶
         this.iframe.style.position = 'fixed';
@@ -88,6 +88,7 @@
     Game_Interpreter.prototype.pluginCommand = function(command, args) {
         _Game_Interpreter_pluginCommand.call(this, command, args);
         
+        // 修正：指令名称匹配您的文件 'Start_AR'
         if (command === 'Start_AR') {
             ARManager.open();
             // 设置一个自定义的等待模式

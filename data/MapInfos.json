@@ -1,6 +1,6 @@
 [
 null,
-{"id":1,"expanded":true,"name":"小镇","order":1,"parentId":0,"scrollX":811,"scrollY":516},
+{"id":1,"expanded":true,"name":"小镇","order":1,"parentId":0,"scrollX":811,"scrollY":512},
 {"id":2,"expanded":true,"name":"学校 走廊","order":3,"parentId":3,"scrollX":1101,"scrollY":512},
 {"id":3,"expanded":true,"name":"活动室","order":2,"parentId":1,"scrollX":819,"scrollY":520},
 {"id":4,"expanded":true,"name":"小超市","order":4,"parentId":2,"scrollX":819,"scrollY":520},
